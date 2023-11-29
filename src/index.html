@@ -1,17 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
+<h1>Static Web Apps Database Connections</h1>
+<blockquote>
+    Open the console in the browser developer tools to see the API responses.
+</blockquote>
+<div>
+    <button id="list" onclick="list()">List</button>
+    <button id="get" onclick="get()">Get</button>
+    <button id="update" onclick="update()">Update</button>
+    <button id="create" onclick="create()">Create</button>
+    <button id="delete" onclick="del()">Delete</button>
+</div>
+<script>
+    async function list() {
+      const endpoint = '/data-api/rest/product';
+      const response = await fetch(endpoint);
+      const data = await response.json();
+      console.table(data.value);
+    }
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
-</head>
+    async function get() {
+      const ProductID = 709;
+      const endpoint = `/data-api/rest/product/ProductID`;
+      const response = await fetch(`${endpoint}/${ProductID}`);
+      const result = await response.json();
+      console.table(result.value);
+    }
 
-<body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
+    async function update() {
 
-</html>
+      const ProductID = 709;
+      const data = {
+        Name: "Mountain Bike Socks, M - UPDATED",
+        ProductNumber: "SO-B909-M",
+        Color: "White",
+        StandardCost: 3.3963,
+        ListPrice: 9.5,
+        Size: "M",
+        Weight: null,
+        ProductCategoryID: 27,
+        ProductModelID: 18,
+        SellStartDate: "2005-07-01T00:00:00",
+        SellEndDate: "2006-06-30T00:00:00",
+        DiscontinuedDate: null,
+        ThumbNailPhoto: "R0lGODlhUAAxAPcAAAAAAIAAAACAAICAAAAAgIAAgACAgICAgMDAwP8AAAD/AP//AAAA//8A/wD//////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMwAAZgAAmQAAzAAA/wAzAAAzMwAzZgAzmQAzzAAz/wBmAABmMwBmZgBmmQBmzABm/wCZAACZMwCZZgCZmQCZzACZ/wDMAADMMwDMZgDMmQDMzADM/wD/AAD/MwD/ZgD/mQD/zAD//zMAADMAMzMAZjMAmTMAzDMA/zMzADMzMzMzZjMzmTMzzDMz/zNmADNmMzNmZjNmmTNmzDNm/zOZADOZMzOZZjOZmTOZzDOZ/zPMADPMMzPMZjPMmTPMzDPM/zP/ADP/MzP/ZjP/mTP/zDP//2YAAGYAM2YAZmYAmWYAzGYA/2YzAGYzM2YzZmYzmWYzzGYz/2ZmAGZmM2ZmZmZmmWZmzGZm/2aZAGaZM2aZZmaZmWaZzGaZ/2bMAGbMM2bMZmbMmWbMzGbM/2b/AGb/M2b/Zmb/mWb/zGb//5kAAJkAM5kAZpkAmZkAzJkA/5kzAJkzM5kzZpkzmZkzzJkz/5lmAJlmM5lmZplmmZlmzJlm/5mZAJmZM5mZZpmZmZmZzJmZ/5nMAJnMM5nMZpnMmZnMzJnM/5n/AJn/M5n/Zpn/mZn/zJn//8wAAMwAM8wAZswAmcwAzMwA/8wzAMwzM8wzZswzmcwzzMwz/8xmAMxmM8xmZsxmmcxmzMxm/8yZAMyZM8yZZsyZmcyZzMyZ/8zMAMzMM8zMZszMmczMzMzM/8z/AMz/M8z/Zsz/mcz/zMz///8AAP8AM/8AZv8Amf8AzP8A//8zAP8zM/8zZv8zmf8zzP8z//9mAP9mM/9mZv9mmf9mzP9m//+ZAP+ZM/+ZZv+Zmf+ZzP+Z///MAP/MM//MZv/Mmf/MzP/M////AP//M///Zv//mf//zP///yH5BAEAABAALAAAAABQADEAAAj/AP8JHEiwoMGDCBMqXMiwocOHECNKnEixosWLGDNq3Mixo8ePIEOKHEmypMmTKFOqXJkRBYqBLhfGZPnQ5ct/MxPmpMnQpsCZNm/CfBnTZ86gQ3HeRMoRadGlQpUqJfoUZ9KnVH9GxVhUKtCoVaWKnZrVK9SmVMPuVHvWrFisPjd+LbuW7tmvb8t6nJuXIFutfbH2lSt07ta/eeOy3clTYuGtjS8yjUy5suXLmDHHdRjWIGPGIjdDBA3YL2SQVY+mvQsVL16yqLOqfuyWtlHZbTv+nY176G67H38DTs068GrSkoMSN+62+fKQqrW2Xe6aem7CSaf6fq7ceevTmcOLEh9Pvrz58+jTq1/Pvr379+8DAgA7",
+        ThumbnailPhotoFileName: "no_image_available_small.gif",
+        rowguid: "18F95F47-1540-4E02-8F1F-CC1BCB6828D0",
+        ModifiedDate: "2023-11-29T12:18:13.827"
+      };
+
+      const endpoint = '/data-api/rest/product/ProductID';
+      const response = await fetch(`${endpoint}/${ProductID}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      const result = await response.json();
+      console.table(result.value);
+    }
+
+    async function del() {
+      const ProductID = 3;
+      const endpoint = '/data-api/rest/product/ProductID';
+      const response = await fetch(`${endpoint}/${ProductID}`, {
+        method: "DELETE"
+      });
+      if(response.ok) {
+        console.log(`Record deleted: ${ ProductID }`)
+      } else {
+        console.log(response);
+      }
+    }
+
+</script>
